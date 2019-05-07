@@ -1,0 +1,244 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "jobDefinition": "sleep60",
+                "jobName": "example",
+                "jobQueue": "HighPriority"
+            },
+            "properties": {
+                "arrayProperties": {
+                    "description": "The array properties for the submitted job, such as the size of the array. The array size can be between 2 and 10,000. If you specify array properties for a job, it becomes an array job. For more information, see <a href=\"http://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html\">Array Jobs</a> in the <i>AWS Batch User Guide</i>.",
+                    "properties": {
+                        "size": {
+                            "description": "The size of the array job.",
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "containerOverrides": {
+                    "description": "A list of container overrides in JSON format that specify the name of a container in the specified job definition and the overrides it should receive. You can override the default command for a container (that is specified in the job definition or the Docker image) with a <code>command</code> override. You can also override existing environment variables (that are specified in the job definition or Docker image) on a container or add new environment variables to it with an <code>environment</code> override.",
+                    "properties": {
+                        "command": {
+                            "description": "The command to send to the container that overrides the default command from the Docker image or the job definition.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "environment": {
+                            "description": "<p>The environment variables to send to the container. You can add new environment variables, which are added to the container at launch, or you can override the existing environment variables from the Docker image or the job definition.</p> <note> <p>Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for variables that are set by the AWS Batch service.</p> </note>",
+                            "items": {
+                                "description": "A key-value pair object.",
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the key-value pair. For environment variables, this is the name of the environment variable.",
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "description": "The value of the key-value pair. For environment variables, this is the value of the environment variable.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "instanceType": {
+                            "description": "The instance type to use for a multi-node parallel job. This parameter is not valid for single-node container jobs.",
+                            "type": "string"
+                        },
+                        "memory": {
+                            "description": "The number of MiB of memory reserved for the job. This value overrides the value set in the job definition.",
+                            "type": "integer"
+                        },
+                        "vcpus": {
+                            "description": "The number of vCPUs to reserve for the container. This value overrides the value set in the job definition.",
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "dependsOn": {
+                    "description": "A list of dependencies for the job. A job can depend upon a maximum of 20 jobs. You can specify a <code>SEQUENTIAL</code> type dependency without specifying a job ID for array jobs so that each child array job completes sequentially, starting at index 0. You can also specify an <code>N_TO_N</code> type dependency with a job ID for array jobs. In that case, each index child of this job must wait for the corresponding index child of each dependency to complete before it can begin.",
+                    "items": {
+                        "description": "An object representing an AWS Batch job dependency.",
+                        "properties": {
+                            "jobId": {
+                                "description": "The job ID of the AWS Batch job associated with this dependency.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "The type of the job dependency.",
+                                "enum": [
+                                    "N_TO_N",
+                                    "SEQUENTIAL"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "jobDefinition": {
+                    "description": "The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon Resource Name (ARN) for the job definition.",
+                    "type": "string"
+                },
+                "jobName": {
+                    "description": "The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed. ",
+                    "type": "string"
+                },
+                "jobQueue": {
+                    "description": "The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of the queue. ",
+                    "type": "string"
+                },
+                "nodeOverrides": {
+                    "description": "A list of node overrides in JSON format that specify the node range to target and the container overrides for that node range.",
+                    "properties": {
+                        "nodePropertyOverrides": {
+                            "description": "The node property overrides for the job.",
+                            "items": {
+                                "description": "Object representing any node overrides to a job definition that is used in a <a>SubmitJob</a> API operation.",
+                                "properties": {
+                                    "containerOverrides": {
+                                        "description": "The overrides that should be sent to a node range.",
+                                        "properties": {
+                                            "command": {
+                                                "description": "The command to send to the container that overrides the default command from the Docker image or the job definition.",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "environment": {
+                                                "description": "<p>The environment variables to send to the container. You can add new environment variables, which are added to the container at launch, or you can override the existing environment variables from the Docker image or the job definition.</p> <note> <p>Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for variables that are set by the AWS Batch service.</p> </note>",
+                                                "items": {
+                                                    "description": "A key-value pair object.",
+                                                    "properties": {
+                                                        "name": {
+                                                            "description": "The name of the key-value pair. For environment variables, this is the name of the environment variable.",
+                                                            "type": "string"
+                                                        },
+                                                        "value": {
+                                                            "description": "The value of the key-value pair. For environment variables, this is the value of the environment variable.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "instanceType": {
+                                                "description": "The instance type to use for a multi-node parallel job. This parameter is not valid for single-node container jobs.",
+                                                "type": "string"
+                                            },
+                                            "memory": {
+                                                "description": "The number of MiB of memory reserved for the job. This value overrides the value set in the job definition.",
+                                                "type": "integer"
+                                            },
+                                            "vcpus": {
+                                                "description": "The number of vCPUs to reserve for the container. This value overrides the value set in the job definition.",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "targetNodes": {
+                                        "description": "The range of nodes, using node index values, with which to override. A range of <code>0:3</code> indicates nodes with index values of <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>), then <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>), then the highest possible node index is used to end the range.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "targetNodes"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "parameters": {
+                    "description": "Additional parameters passed to the job that replace parameter substitution placeholders that are set in the job definition. Parameters are specified as a key and value pair mapping. Parameters in a <code>SubmitJob</code> request override any corresponding parameter defaults from the job definition.",
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "retryStrategy": {
+                    "description": "The retry strategy to use for failed jobs from this <a>SubmitJob</a> operation. When a retry strategy is specified here, it overrides the retry strategy defined in the job definition.",
+                    "properties": {
+                        "attempts": {
+                            "description": "The number of times to move a job to the <code>RUNNABLE</code> status. You may specify between 1 and 10 attempts. If the value of <code>attempts</code> is greater than one, the job is retried on failure the same number of attempts as the value.",
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "timeout": {
+                    "description": "The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which AWS Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it is not retried. The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html\">Job Timeouts</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.",
+                    "properties": {
+                        "attemptDurationSeconds": {
+                            "description": "The time duration in seconds (measured from the job attempt's <code>startedAt</code> timestamp) after which AWS Batch terminates your jobs if they have not finished.",
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "jobName",
+                "jobQueue",
+                "jobDefinition"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

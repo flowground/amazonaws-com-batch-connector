@@ -1,0 +1,104 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "computeEnvironmentOrder": [
+                    {
+                        "computeEnvironment": "C4OnDemand",
+                        "order": 1
+                    },
+                    {
+                        "computeEnvironment": "M4Spot",
+                        "order": 2
+                    }
+                ],
+                "jobQueueName": "HighPriority",
+                "priority": 10,
+                "state": "ENABLED"
+            },
+            "properties": {
+                "computeEnvironmentOrder": {
+                    "description": "The set of compute environments mapped to a job queue and their order relative to each other. The job scheduler uses this parameter to determine which compute environment should execute a given job. Compute environments must be in the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three compute environments with a job queue.",
+                    "items": {
+                        "description": "The order in which compute environments are tried for job placement within a queue. Compute environments are tried in ascending order. For example, if two compute environments are associated with a job queue, the compute environment with a lower order integer value is tried for job placement first.",
+                        "properties": {
+                            "computeEnvironment": {
+                                "description": "The Amazon Resource Name (ARN) of the compute environment.",
+                                "type": "string"
+                            },
+                            "order": {
+                                "description": "The order of the compute environment.",
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "order",
+                            "computeEnvironment"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "jobQueueName": {
+                    "description": "The name of the job queue.",
+                    "type": "string"
+                },
+                "priority": {
+                    "description": "The priority of the job queue. Job queues with a higher priority (or a higher integer value for the <code>priority</code> parameter) are evaluated first when associated with the same compute environment. Priority is determined in descending order, for example, a job queue with a priority value of <code>10</code> is given scheduling preference over a job queue with a priority value of <code>1</code>.",
+                    "type": "integer"
+                },
+                "state": {
+                    "description": "The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.",
+                    "enum": [
+                        "ENABLED",
+                        "DISABLED"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "jobQueueName",
+                "priority",
+                "computeEnvironmentOrder"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

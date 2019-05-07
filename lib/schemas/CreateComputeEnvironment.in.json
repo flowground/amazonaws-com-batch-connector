@@ -1,0 +1,217 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "computeEnvironmentName": "M4Spot",
+                "computeResources": {
+                    "bidPercentage": 20,
+                    "desiredvCpus": 4,
+                    "ec2KeyPair": "id_rsa",
+                    "instanceRole": "ecsInstanceRole",
+                    "instanceTypes": [
+                        "m4"
+                    ],
+                    "maxvCpus": 128,
+                    "minvCpus": 0,
+                    "securityGroupIds": [
+                        "sg-cf5093b2"
+                    ],
+                    "spotIamFleetRole": "arn:aws:iam::012345678910:role/aws-ec2-spot-fleet-role",
+                    "subnets": [
+                        "subnet-220c0e0a",
+                        "subnet-1a95556d",
+                        "subnet-978f6dce"
+                    ],
+                    "tags": {
+                        "Name": "Batch Instance - M4Spot"
+                    },
+                    "type": "SPOT"
+                },
+                "serviceRole": "arn:aws:iam::012345678910:role/AWSBatchServiceRole",
+                "state": "ENABLED",
+                "type": "MANAGED"
+            },
+            "properties": {
+                "computeEnvironmentName": {
+                    "description": "The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.",
+                    "type": "string"
+                },
+                "computeResources": {
+                    "description": "Details of the compute resources managed by the compute environment. This parameter is required for managed compute environments.",
+                    "properties": {
+                        "bidPercentage": {
+                            "description": "The maximum percentage that a Spot Instance price can be when compared with the On-Demand price for that instance type before instances are launched. For example, if your maximum percentage is 20%, then the Spot price must be below 20% of the current On-Demand price for that EC2 instance. You always pay the lowest (market) price and never more than your maximum percentage. If you leave this field empty, the default value is 100% of the On-Demand price.",
+                            "type": "integer"
+                        },
+                        "desiredvCpus": {
+                            "description": "The desired number of EC2 vCPUS in the compute environment. ",
+                            "type": "integer"
+                        },
+                        "ec2KeyPair": {
+                            "description": "The EC2 key pair that is used for instances launched in the compute environment.",
+                            "type": "string"
+                        },
+                        "imageId": {
+                            "description": "The Amazon Machine Image (AMI) ID used for instances launched in the compute environment.",
+                            "type": "string"
+                        },
+                        "instanceRole": {
+                            "description": "The Amazon ECS instance profile applied to Amazon EC2 instances in a compute environment. You can specify the short name or full Amazon Resource Name (ARN) of an instance profile. For example, <code>ecsInstanceRole</code> or <code>arn:aws:iam::&lt;aws_account_id&gt;:instance-profile/ecsInstanceRole</code>. For more information, see <a href=\"http://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html\">Amazon ECS Instance Role</a> in the <i>AWS Batch User Guide</i>.",
+                            "type": "string"
+                        },
+                        "instanceTypes": {
+                            "description": "The instances types that may be launched. You can specify instance families to launch any instance type within those families (for example, <code>c4</code> or <code>p3</code>), or you can specify specific sizes within a family (such as <code>c4.8xlarge</code>). You can also choose <code>optimal</code> to pick instance types (from the latest C, M, and R instance families) on the fly that match the demand of your job queues.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "launchTemplate": {
+                            "description": "The launch template to use for your compute resources. Any other compute resource parameters that you specify in a <a>CreateComputeEnvironment</a> API operation override the same parameters in the launch template. You must specify either the launch template ID or launch template name in the request, but not both. ",
+                            "properties": {
+                                "launchTemplateId": {
+                                    "description": "The ID of the launch template.",
+                                    "type": "string"
+                                },
+                                "launchTemplateName": {
+                                    "description": "The name of the launch template.",
+                                    "type": "string"
+                                },
+                                "version": {
+                                    "description": "<p>The version number of the launch template.</p> <p>Default: The default version of the launch template.</p>",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "maxvCpus": {
+                            "description": "The maximum number of EC2 vCPUs that an environment can reach. ",
+                            "type": "integer"
+                        },
+                        "minvCpus": {
+                            "description": "The minimum number of EC2 vCPUs that an environment should maintain (even if the compute environment is <code>DISABLED</code>). ",
+                            "type": "integer"
+                        },
+                        "placementGroup": {
+                            "description": "The Amazon EC2 placement group to associate with your compute resources. If you intend to submit multi-node parallel jobs to your compute environment, you should consider creating a cluster placement group and associate it with your compute resources. This keeps your multi-node parallel job on a logical grouping of instances within a single Availability Zone with high network flow potential. For more information, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html\">Placement Groups</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.",
+                            "type": "string"
+                        },
+                        "securityGroupIds": {
+                            "description": "The EC2 security group that is associated with instances launched in the compute environment. ",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "spotIamFleetRole": {
+                            "description": "The Amazon Resource Name (ARN) of the Amazon EC2 Spot Fleet IAM role applied to a <code>SPOT</code> compute environment.",
+                            "type": "string"
+                        },
+                        "subnets": {
+                            "description": "The VPC subnets into which the compute resources are launched. ",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "tags": {
+                            "description": "Key-value pair tags to be applied to resources that are launched in the compute environment. ",
+                            "items": {
+                                "properties": {
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "type": {
+                            "description": "The type of compute environment.",
+                            "enum": [
+                                "EC2",
+                                "SPOT"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "minvCpus",
+                        "maxvCpus",
+                        "instanceTypes",
+                        "subnets",
+                        "instanceRole"
+                    ],
+                    "type": "object"
+                },
+                "serviceRole": {
+                    "description": "<p>The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf.</p> <p>If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this is recommended) or prefix the role name with the path.</p> <note> <p>Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments.</p> </note>",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment accepts jobs from a queue and can scale out automatically based on queues.",
+                    "enum": [
+                        "ENABLED",
+                        "DISABLED"
+                    ],
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type of the compute environment. For more information, see <a href=\"http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html\">Compute Environments</a> in the <i>AWS Batch User Guide</i>.",
+                    "enum": [
+                        "MANAGED",
+                        "UNMANAGED"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "computeEnvironmentName",
+                "type",
+                "serviceRole"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

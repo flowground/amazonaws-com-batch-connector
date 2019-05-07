@@ -1,0 +1,83 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "jobQueue": "HighPriority",
+                "jobStatus": "SUBMITTED"
+            },
+            "properties": {
+                "arrayJobId": {
+                    "description": "The job ID for an array job. Specifying an array job ID with this parameter lists all child jobs from within the specified array.",
+                    "type": "string"
+                },
+                "jobQueue": {
+                    "description": "The name or full Amazon Resource Name (ARN) of the job queue with which to list jobs.",
+                    "type": "string"
+                },
+                "jobStatus": {
+                    "description": "The job status with which to filter jobs in the specified queue. If you do not specify a status, only <code>RUNNING</code> jobs are returned.",
+                    "enum": [
+                        "SUBMITTED",
+                        "PENDING",
+                        "RUNNABLE",
+                        "STARTING",
+                        "RUNNING",
+                        "SUCCEEDED",
+                        "FAILED"
+                    ],
+                    "type": "string"
+                },
+                "maxResults": {
+                    "description": "The maximum number of results returned by <code>ListJobs</code> in paginated output. When this parameter is used, <code>ListJobs</code> only returns <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The remaining results of the initial request can be seen by sending another <code>ListJobs</code> request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is not used, then <code>ListJobs</code> returns up to 100 results and a <code>nextToken</code> value if applicable.",
+                    "type": "integer"
+                },
+                "multiNodeJobId": {
+                    "description": "The job ID for a multi-node parallel job. Specifying a multi-node parallel job ID with this parameter lists all nodes that are associated with the specified job.",
+                    "type": "string"
+                },
+                "nextToken": {
+                    "description": "<p>The <code>nextToken</code> value returned from a previous paginated <code>ListJobs</code> request where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the <code>nextToken</code> value. This value is <code>null</code> when there are no more results to return.</p> <note> <p>This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.</p> </note>",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
